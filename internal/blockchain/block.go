@@ -25,7 +25,7 @@ func NewBlock(data string, previousHash []byte) *Block {
 		Nonce:        0,
 	}
 
-	block.MineBlock()
+	block.Mine()
 
 	return block
 }
@@ -34,7 +34,7 @@ func (b *Block) IsMined() bool {
 	return bytes.HasPrefix(b.Hash, []byte(targetPrefix))
 }
 
-func (b *Block) MineBlock() {
+func (b *Block) Mine() {
 	for {
 		b.Hash = b.CalculateHash()
 
