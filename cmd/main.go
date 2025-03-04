@@ -14,4 +14,6 @@ func main() {
 	for _, block := range blockchain.Blocks {
 		fmt.Printf("Block %x with data %s\n", block.Hash, block.Data)
 	}
+
+	fmt.Printf("Blockchain valid status: %t\n", blockchain.IsValid())
 }
