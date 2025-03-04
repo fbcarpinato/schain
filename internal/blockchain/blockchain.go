@@ -30,27 +30,13 @@ func (bc *Blockchain) IsValid() bool {
 		return true
 	}
 
-	if len(bc.Blocks) == 1 {
-		return bytes.Equal(bc.Blocks[0].Hash, bc.Blocks[0].CalculateHash())
-	}
+	for i := 1; i < len(bc.Blocks); i++ {
+		prev, curr := bc.Blocks[i-1], bc.Blocks[i]
 
-	for i := 1; i < len(bc.Blocks)-1; i++ {
-		previousBlock := bc.Blocks[i-1]
-		currentBlock := bc.Blocks[i]
-
-		if bytes.Equal(currentBlock.Hash, currentBlock.CalculateHash()) {
-			return false
-		}
-
-		if bytes.Equal(previousBlock.Hash, previousBlock.CalculateHash()) {
-			return false
-		}
-
-		if bytes.Equal(currentBlock.PreviousHash, previousBlock.Hash) {
-			return false
-		}
-
-		if !currentBlock.IsMined() || !previousBlock.IsMined() {
+		if !bytes.Equal(curr.Hash, curr.CalculateHash()) ||
+			!bytes.Equal(prev.Hash, prev.CalculateHash()) ||
+			!bytes.Equal(curr.PreviousHash, prev.Hash) ||
+			!curr.IsMined() || !prev.IsMined() {
 			return false
 		}
 	}
