@@ -1,7 +1,13 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+
+	"github.com/fbcarpinato/schain/internal/blockchain"
+)
 
 func main() {
-	fmt.Println("Hello World")
+	block := blockchain.NewBlock("Test data", []byte{})
+
+	fmt.Printf("Block hash: %x\n", block.Hash)
 }
