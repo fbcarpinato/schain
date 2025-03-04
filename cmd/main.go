@@ -7,7 +7,11 @@ import (
 )
 
 func main() {
-	block := blockchain.NewBlock("Test data", []byte{})
+	blockchain := blockchain.NewBlockchain()
 
-	fmt.Printf("Block hash: %x\n", block.Hash)
+	blockchain.AddBlock("Test first block")
+
+	for _, block := range blockchain.Blocks {
+		fmt.Printf("Block %x with data %s\n", block.Hash, block.Data)
+	}
 }

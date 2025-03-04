@@ -29,6 +29,8 @@ func NewBlock(data string, previousHash []byte) *Block {
 func (b *Block) calculateHash() []byte {
 	data := bytes.Join([][]byte{
 		[]byte(strconv.FormatInt(b.Timestamp, 10)),
+		b.PreviousHash,
+		[]byte(b.Data),
 	}, []byte{})
 
 	hash := sha256.Sum256(data)
