@@ -11,8 +11,17 @@ import (
 func main() {
 	chain := blockchain.NewBlockchain()
 
-	wallet1, _ := wallet.NewWallet()
-	wallet2, _ := wallet.NewWallet()
+	wallet1, err := wallet.NewWallet()
+	if err != nil {
+		fmt.Printf("Wallet creation failed: %v\n", err)
+		return
+	}
+
+	wallet2, err := wallet.NewWallet()
+	if err != nil {
+		fmt.Printf("Wallet creation failed: %v\n", err)
+		return
+	}
 
 	tx, err := transaction.NewTransaction(wallet1, wallet2, 10.0)
 	if err != nil {
@@ -22,7 +31,12 @@ func main() {
 
 	chain.AddBlock([]*transaction.Transaction{tx})
 
-	tx2, _ := transaction.NewTransaction(wallet2, wallet1, 5.0)
+	tx2, err := transaction.NewTransaction(wallet2, wallet1, 5.0)
+	if err != nil {
+		fmt.Printf("Transaction creation failed: %v\n", err)
+		return
+	}
+
 	chain.AddBlock([]*transaction.Transaction{tx2})
 
 	for i, block := range chain.Blocks {
@@ -40,7 +54,6 @@ func main() {
 	}
 
 	fmt.Printf("\nBlockchain valid: %t\n", chain.IsValid())
-
 	fmt.Printf("\nWallet 1 balance: %d\n", wallet1.Balance)
 	fmt.Printf("Wallet 2 balance: %d\n", wallet2.Balance)
 }
