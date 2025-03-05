@@ -13,6 +13,7 @@ import (
 type Wallet struct {
 	PrivateKey *ecdsa.PrivateKey
 	PublicKey  []byte
+	Balance    int
 }
 
 func NewWallet() (*Wallet, error) {
@@ -27,6 +28,7 @@ func NewWallet() (*Wallet, error) {
 	return &Wallet{
 		PrivateKey: privateKey,
 		PublicKey:  publicKey,
+		Balance:    100,
 	}, nil
 }
 

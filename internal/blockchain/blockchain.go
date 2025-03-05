@@ -1,13 +1,17 @@
 package blockchain
 
-import "bytes"
+import (
+	"bytes"
+
+	"github.com/fbcarpinato/schain/internal/transaction"
+)
 
 type Blockchain struct {
 	Blocks []*Block
 }
 
 func NewBlockchain() *Blockchain {
-	genesisBlock := NewBlock("Genesis Block", []byte{})
+	genesisBlock := NewBlock([]*transaction.Transaction{}, []byte{})
 
 	return &Blockchain{
 		Blocks: []*Block{genesisBlock},
@@ -18,10 +22,10 @@ func (bc *Blockchain) LatestBlock() *Block {
 	return bc.Blocks[len(bc.Blocks)-1]
 }
 
-func (bc *Blockchain) AddBlock(data string) {
+func (bc *Blockchain) AddBlock(transactions []*transaction.Transaction) {
 	bc.Blocks = append(
 		bc.Blocks,
-		NewBlock(data, bc.LatestBlock().Hash),
+		NewBlock(transactions, bc.LatestBlock().Hash),
 	)
 }
 
