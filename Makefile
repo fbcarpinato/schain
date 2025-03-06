@@ -1,8 +1,15 @@
-.PHONY: build run docs
+.PHONY: build-example run-example build-node run-node
 
-build:
-	go build -o bin/main cmd/main.go
+build-example:
+	go build -o bin/example/main cmd/example/main.go
 
-run:
-	go run cmd/main.go
+run-example:
+	go run cmd/example/main.go
+
+
+build-node:
+	go build -o bin/node/main cmd/node/main.go
+
+run-node:
+	go run cmd/node/main.go
 
